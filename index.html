@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri Life — Nutrição Clínica, Performance & Bem-Estar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf6',
+                            100: '#dcfce9',
+                            200: '#bbf7d4',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        slate: {
+                            850: '#172033',
+                            900: '#0f172a',
+                            950: '#090d16',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(15, 23, 42, 0.06)',
+                        'card': '0 4px 20px -2px rgba(15, 23, 42, 0.04)',
+                        'glow': '0 0 30px -5px rgba(16, 185, 129, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hero-surface {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 15%, rgba(245, 158, 11, 0.05) 0px, transparent 45%);
+        }
+        .subtle-grid {
+            background-size: 32px 32px;
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50/70 text-slate-700 font-sans antialiased selection:bg-brand-600 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
+            <p class="flex items-center gap-2">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                <span>Atendimento presencial em São Paulo e teleconsulta nutricional para todo o Brasil.</span>
+            </p>
+            <span class="text-slate-400 font-medium">CRN-3 Ativo • Nutrição Baseada em Evidências</span>
+        </div>
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <div class="w-10 h-10 rounded-xl bg-brand-700 flex items-center justify-center text-white shadow-sm group-hover:bg-brand-600 transition-colors">
+                        <i class="fa-solid fa-leaf text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+                            Nutri<span class="text-brand-600">Life</span>
+                        </span>
+                        <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-[0.18em] mt-1">
+                            Clínica & Performance
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+                    <a href="#icebreakers" class="hover:text-brand-700 transition-colors">Diagnóstico Inicial</a>
+                    <a href="#calculadoras" class="hover:text-brand-700 transition-colors">Calculadoras</a>
+                    <a href="#prato-perfeito" class="hover:text-brand-700 transition-colors">Composição de Prato</a>
+                    <a href="#mitos" class="hover:text-brand-700 transition-colors">Ciência vs. Mitos</a>
+                    <a href="#receitas" class="hover:text-brand-700 transition-colors">Gastronomia Funcional</a>
+                    <a href="#depoimentos" class="hover:text-brand-700 transition-colors">Pacientes</a>
+                </nav>
+
+                <!-- Action Button / User Profile -->
+                <div class="hidden md:flex items-center gap-3" id="headerAuthContainer">
+                    <button onclick="openModal('authModal')" class="text-sm font-semibold text-slate-700 hover:text-brand-700 px-3 py-2 transition-colors">
+                        Área do Paciente
+                    </button>
+                    <button onclick="openModal('scheduleModal')" class="bg-slate-900 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                        <span>Agendar Consulta</span>
+                        <i class="fa-regular fa-calendar-check text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" aria-label="Abrir Menu" class="lg:hidden text-slate-700 hover:text-brand-700 p-2 rounded-lg border border-slate-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 shadow-lg">
+            <a href="#icebreakers" class="block py-2.5 px-3 rounded-lg text-slate-700 font-medium hover:bg-slate-50 hover:text-brand-700">Diagnóstico Inicial</a>
+            <a href="#calculadoras" class="block py-2.5 px-3 rounded-lg text-slate-700 font-medium hover:bg-slate-50 hover:text-brand-700">Calculadoras Clínicas</a>
+            <a href="#prato-perfeito" class="block py-2.5 px-3 rounded-lg text-slate-700 font-medium hover:bg-slate-50 hover:text-brand-700">Composição de Prato</a>
+            <a href="#mitos" class="block py-2.5 px-3 rounded-lg text-slate-700 font-medium hover:bg-slate-50 hover:text-brand-700">Ciência vs. Mitos</a>
+            <a href="#receitas" class="block py-2.5 px-3 rounded-lg text-slate-700 font-medium hover:bg-slate-50 hover:text-brand-700">Gastronomia Funcional</a>
+            <div class="pt-2 border-t border-slate-100 space-y-2">
+                <button onclick="openModal('scheduleModal')" class="w-full bg-slate-900 text-white font-semibold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-regular fa-calendar-check"></i> Agendar Consulta
+                </button>
+                <div id="mobileAuthContainer">
+                    <button onclick="openModal('authModal')" class="w-full bg-brand-700 text-white font-semibold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-user-check"></i> Acessar Área do Paciente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative hero-surface pt-14 pb-24 border-b border-slate-200/70 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-50 text-brand-800 text-xs font-semibold border border-brand-200/80">
+                        <i class="fa-solid fa-shield-heart text-brand-600"></i>
+                        <span>Protocolos Nutricionais Individualizados (Sem Terrorism0 Nutricional)</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+                        Ciência nutricional aplicada à <span class="text-brand-700">sua rotina real.</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Abandone protocolos genéricos e dietas em que você passa vontade de tudo. Conquiste composição corporal saudável, energia e leveza à mesa com acompanhamento estratégico.
+                    </p>
+
+                    <!-- Interactive Quick Tools Launcher -->
+                    <div class="bg-white p-5 rounded-2xl shadow-soft border border-slate-200/80 max-w-2xl mx-auto lg:mx-0 text-left">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-sliders text-brand-600"></i> Ferramentas Gratuitas de Triagem
+                            </span>
+                            <span class="text-[11px] text-slate-400">Selecione para explorar</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <button onclick="scrollToSection('icebreakers')" class="p-3 bg-slate-50/80 hover:bg-brand-50/70 border border-slate-200/80 hover:border-brand-300 rounded-xl text-left transition-all flex items-center gap-3 group">
+                                <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-700 flex items-center justify-center shadow-2xs group-hover:bg-brand-700 group-hover:text-white group-hover:border-brand-700 transition-colors">
+                                    <i class="fa-solid fa-clipboard-list text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-800 block">Anamnese Rápida</span>
+                                    <span class="text-[11px] text-slate-500">Descubra seu perfil</span>
+                                </div>
+                            </button>
+
+                            <button onclick="scrollToSection('calculadoras')" class="p-3 bg-slate-50/80 hover:bg-brand-50/70 border border-slate-200/80 hover:border-brand-300 rounded-xl text-left transition-all flex items-center gap-3 group">
+                                <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-700 flex items-center justify-center shadow-2xs group-hover:bg-brand-700 group-hover:text-white group-hover:border-brand-700 transition-colors">
+                                    <i class="fa-solid fa-calculator text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-800 block">Taxa Basal & Hidratação</span>
+                                    <span class="text-[11px] text-slate-500">Cálculo metabólico</span>
+                                </div>
+                            </button>
+
+                            <button onclick="scrollToSection('prato-perfeito')" class="p-3 bg-slate-50/80 hover:bg-brand-50/70 border border-slate-200/80 hover:border-brand-300 rounded-xl text-left transition-all flex items-center gap-3 group">
+                                <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-700 flex items-center justify-center shadow-2xs group-hover:bg-brand-700 group-hover:text-white group-hover:border-brand-700 transition-colors">
+                                    <i class="fa-solid fa-utensils text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-800 block">Simulador de Refeição</span>
+                                    <span class="text-[11px] text-slate-500">Equilíbrio de macros</span>
+                                </div>
+                            </button>
+
+                            <button onclick="scrollToSection('mitos')" class="p-3 bg-slate-50/80 hover:bg-brand-50/70 border border-slate-200/80 hover:border-brand-300 rounded-xl text-left transition-all flex items-center gap-3 group">
+                                <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-brand-700 flex items-center justify-center shadow-2xs group-hover:bg-brand-700 group-hover:text-white group-hover:border-brand-700 transition-colors">
+                                    <i class="fa-solid fa-microscope text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-800 block">Mitos Nutricionais</span>
+                                    <span class="text-[11px] text-slate-500">Teste seus conhecimentos</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Credibility Metrics -->
+                    <div class="flex flex-wrap justify-center lg:justify-start items-center gap-8 pt-2">
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">+3.500</p>
+                            <p class="text-xs font-medium text-slate-500">Planos acompanhados</p>
+                        </div>
+                        <div class="w-px h-9 bg-slate-200"></div>
+                        <div>
+                            <p class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">98%</p>
+                            <p class="text-xs font-medium text-slate-500">Adesão após 90 dias</p>
+                        </div>
+                        <div class="w-px h-9 bg-slate-200"></div>
+                        <div>
+                            <div class="flex items-center justify-center lg:justify-start gap-1 text-amber-500 text-xs mb-0.5">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-xs font-medium text-slate-500"><strong class="text-slate-800">4.9/5</strong> Avaliação Clínica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Media / Clinical Widget -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md">
+                        <div class="relative bg-white rounded-3xl p-5 shadow-soft border border-slate-200/90">
+                            <div class="relative h-72 rounded-2xl overflow-hidden mb-5 bg-slate-100">
+                                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85" 
+                                     alt="Refeição equilibrada e nutritiva Nutri Life" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src='https://placehold.co/600x400/047857/ffffff?text=Nutri+Life+Clinica'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/15 to-transparent"></div>
+                                <div class="absolute top-3.5 left-3.5">
+                                    <span class="bg-white/95 backdrop-blur-md text-slate-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                                        <i class="fa-solid fa-circle-check text-brand-600"></i> Metodologia Flexível
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <p class="text-xs text-slate-200 font-medium">Acompanhamento Digital & Presencial</p>
+                                    <h3 class="text-lg font-bold leading-snug mt-0.5">Cardápios adaptados à sua realidade</h3>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Daily Water Goal Quick Preview -->
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/70">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-md bg-sky-100 text-sky-600 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-droplet"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-700">Monitoramento Hídrico Diário</span>
+                                    </div>
+                                    <span id="quickWaterCount" class="text-xs font-bold text-sky-700">0 / 2.000 ml</span>
+                                </div>
+                                <div class="w-full bg-slate-200/80 rounded-full h-2 mb-3 overflow-hidden">
+                                    <div id="quickWaterBar" class="bg-sky-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button onclick="addQuickWater(250)" class="flex-1 py-2 bg-white hover:bg-sky-50 text-sky-700 text-xs font-semibold rounded-xl border border-slate-200 hover:border-sky-200 flex items-center justify-center gap-1.5 transition-all shadow-2xs">
+                                        <i class="fa-solid fa-plus text-[10px]"></i> Registrar 250 ml
+                                    </button>
+                                    <button onclick="resetQuickWater()" title="Zerar contador" class="px-3 py-2 bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-600 text-xs rounded-xl border border-slate-200 transition-colors">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ICEBREAKER CENTRAL HUB: CLINICAL TRIAGE -->
+    <section id="icebreakers" class="py-24 bg-white border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-brand-700 text-xs font-bold uppercase tracking-widest">
+                    Etapa 01 • Triagem Preliminar
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+                    Mapeamento de Perfil Nutricional
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Responda a três perguntas objetivas para identificarmos a abordagem mais eficiente para a sua rotina e metabolismo.
+                </p>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quizContainer" class="bg-slate-900 rounded-3xl p-6 sm:p-10 lg:p-12 text-white shadow-soft border border-slate-800 max-w-4xl mx-auto relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-8">
+                    <div>
+                        <span class="text-brand-400 text-xs font-semibold uppercase tracking-wider">Avaliação Inicial Gratuita</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">Anamnese Express (30 segundos)</h3>
+                    </div>
+                    <span id="quizStepBadge" class="self-start sm:self-auto bg-slate-800 text-slate-200 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-slate-700">
+                        Passo 1 de 3
+                    </span>
+                </div>
+
+                <!-- Step 1 -->
+                <div id="quizStep1" class="space-y-5">
+                    <p class="text-base sm:text-lg font-medium text-slate-200">1. Qual é a sua prioridade clínica neste momento?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="selectQuizOption(1, 'Redução de gordura corporal')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg mb-3 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-fire-flame-curved"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Emagrecimento</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Déficit calórico estratégico sem perda de massa magra.</span>
+                        </button>
+                        <button onclick="selectQuizOption(1, 'Hipertrofia e performance')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg mb-3 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-dumbbell"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Hipertrofia</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Síntese proteica otimizada e rendimento físico.</span>
+                        </button>
+                        <button onclick="selectQuizOption(1, 'Saúde metabólica e disposição')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg mb-3 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Saúde & Longevidade</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Controle glicêmico, digestão e vitalidade diária.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="quizStep2" class="space-y-5 hidden">
+                    <p class="text-base sm:text-lg font-medium text-slate-200">2. Qual barreira mais impacta sua constância alimentar?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="selectQuizOption(2, 'gestão de tempo e preparo')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-lg mb-3 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Tempo Reduzido</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Rotina intensa com pouco espaço para cozinhar.</span>
+                        </button>
+                        <button onclick="selectQuizOption(2, 'controle de saciedade e compulsão')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg mb-3 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Fome Emocional</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Vontade de doces e beliscos no fim do dia.</span>
+                        </button>
+                        <button onclick="selectQuizOption(2, 'manutenção de resultados a longo prazo')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg mb-3 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Efeito Sanfona</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Dificuldade em sustentar dietas muito rígidas.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="quizStep3" class="space-y-5 hidden">
+                    <p class="text-base sm:text-lg font-medium text-slate-200">3. Qual modelo de planejamento se adapta melhor ao seu estilo?</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button onclick="finishQuiz('refeições práticas e pré-preparadas')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg mb-3 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-box-open"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Praticidade & Marmitas</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Preparos rápidos e organização semanal.</span>
+                        </button>
+                        <button onclick="finishQuiz('base alimentar tradicional brasileira')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg mb-3 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-bowl-rice"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Culinária Caseira</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Alimentos acessíveis do dia a dia, sem frescuras.</span>
+                        </button>
+                        <button onclick="finishQuiz('flexibilidade com substituições inteligentes')" class="p-5 rounded-2xl bg-slate-850 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500 text-left transition-all group">
+                            <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-lg mb-3 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <span class="font-bold block text-sm text-white">Dieta Flexível</span>
+                            <span class="text-xs text-slate-400 mt-1 block">Lista ampla de substituições e vida social ativa.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Result -->
+                <div id="quizResult" class="hidden space-y-6 text-center py-4">
+                    <div class="w-14 h-14 bg-brand-500/20 text-brand-400 border border-brand-500/40 rounded-2xl flex items-center justify-center text-2xl mx-auto">
+                        <i class="fa-solid fa-file-medical"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-400">Parecer Preliminar</span>
+                        <h4 class="text-2xl font-bold text-white mt-1">Diretriz Nutricional Identificada</h4>
+                        <p id="quizSummaryText" class="text-slate-300 mt-3 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"></p>
+                    </div>
+                    <div class="pt-2 flex flex-wrap justify-center gap-3">
+                        <button onclick="openModal('scheduleModal')" class="bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                            <i class="fa-regular fa-calendar-check"></i> Agendar Avaliação com esse Perfil
+                        </button>
+                        <button onclick="openModal('authModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold px-5 py-3 rounded-xl border border-slate-700 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-bookmark"></i> Salvar no Portal
+                        </button>
+                        <button onclick="resetQuiz()" class="text-slate-400 hover:text-white text-xs font-semibold px-4 py-3 transition-colors">
+                            Refazer Triagem
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lighthearted Daily Tip Strip -->
+            <div class="max-w-4xl mx-auto mt-8 bg-brand-50/70 border border-brand-200/80 rounded-2xl p-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5 text-center sm:text-left">
+                    <div class="w-10 h-10 rounded-xl bg-white border border-brand-200 text-brand-700 flex items-center justify-center shrink-0 shadow-2xs">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 block">Pílula de Nutrição Descomplicada</span>
+                        <p id="dailyTipText" class="text-xs sm:text-sm font-medium text-slate-800 mt-0.5">
+                            Comer um chocolate 70% depois do almoço não estraga sua semana — o que define resultado é a consistência dos outros 90%.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="nextDailyTip()" class="shrink-0 text-xs font-semibold text-brand-800 bg-white hover:bg-brand-100/70 px-3.5 py-2 rounded-xl border border-brand-200 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-shuffle text-[11px]"></i> Nova Dica
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULATORS SECTION -->
+    <section id="calculadoras" class="py-24 bg-slate-50/80 border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-brand-700 text-xs font-bold uppercase tracking-widest">
+                    Etapa 02 • Parâmetros Fisiológicos
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+                    Calculadoras Clínicas
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Estime sua necessidade hídrica diária e sua Taxa Metabólica Basal utilizando equações validadas na prática clínica.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Water Calculator -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 shadow-card border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-6 pb-5 border-b border-slate-100">
+                            <div class="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 text-sky-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-droplet"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">Necessidade Hídrica Diária</h3>
+                                <p class="text-xs text-slate-500">Cálculo proporcional ao peso e gasto físico</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Peso Corporal Atual (kg)</label>
+                                <input type="number" id="waterWeightInput" placeholder="Ex: 70" value="70" min="30" max="250" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/15 font-semibold text-slate-800 text-sm transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nível de Atividade Física</label>
+                                <select id="waterActivityInput" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/15 font-medium text-slate-800 text-sm transition-all">
+                                    <option value="35">Rotina leve / Sedentário (35 ml/kg)</option>
+                                    <option value="40">Praticante regular de exercícios (40 ml/kg)</option>
+                                    <option value="45">Treinos intensos / Clima quente (45 ml/kg)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-slate-100">
+                        <button onclick="calculateWater()" class="w-full bg-slate-900 hover:bg-sky-700 text-white text-sm font-semibold py-3.5 rounded-xl transition-colors">
+                            Calcular Ingestão Recomendada
+                        </button>
+                        <div id="waterResult" class="mt-4 p-4 rounded-2xl bg-sky-50/80 border border-sky-200/70 text-center hidden">
+                            <span class="text-[11px] font-bold text-sky-800 uppercase tracking-wider">Meta Hídrica Estimada</span>
+                            <p id="waterResultValue" class="font-display text-3xl font-extrabold text-slate-900 mt-1">2.450 ml</p>
+                            <p id="waterCupsText" class="text-xs text-slate-600 mt-1">Equivalente a cerca de 10 copos de 250 ml ao longo do dia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TDEE & Macro Calculator -->
+                <div class="bg-white rounded-3xl p-7 sm:p-8 shadow-card border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-6 pb-5 border-b border-slate-100">
+                            <div class="w-11 h-11 rounded-xl bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-fire"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">Taxa Metabólica Basal (TMB)</h3>
+                                <p class="text-xs text-slate-500">Equação de Harris-Benedict revisada</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Idade (anos)</label>
+                                <input type="number" id="tmbAge" value="28" min="14" max="100" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/15 font-semibold text-slate-800 text-sm transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Sexo Biológico</label>
+                                <select id="tmbGender" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/15 font-medium text-slate-800 text-sm transition-all">
+                                    <option value="m">Masculino</option>
+                                    <option value="f">Feminino</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Estatura (cm)</label>
+                                <input type="number" id="tmbHeight" value="175" min="120" max="230" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/15 font-semibold text-slate-800 text-sm transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Peso (kg)</label>
+                                <input type="number" id="tmbWeight" value="70" min="30" max="250" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/15 font-semibold text-slate-800 text-sm transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-slate-100">
+                        <button onclick="calculateTMB()" class="w-full bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold py-3.5 rounded-xl transition-colors">
+                            Calcular Gasto Energético Basal
+                        </button>
+                        <div id="tmbResult" class="mt-4 p-4 rounded-2xl bg-brand-50/80 border border-brand-200/70 text-center hidden">
+                            <span class="text-[11px] font-bold text-brand-800 uppercase tracking-wider">Gasto Calórico em Repouso</span>
+                            <p id="tmbResultValue" class="font-display text-3xl font-extrabold text-slate-900 mt-1">1.680 kcal</p>
+                            <p class="text-xs text-slate-600 mt-1">Energia mínima necessária para suas funções vitais diárias</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUILD YOUR PLATE SECTION -->
+    <section id="prato-perfeito" class="py-24 bg-white border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-brand-700 text-xs font-bold uppercase tracking-widest">
+                    Etapa 03 • Educação Alimentar
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+                    Simulador de Composição do Prato
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Experimente combinar fontes de proteína, carboidratos complexos e fibras seguindo o modelo nutricional de Harvard.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
+                <!-- Food Selector Side -->
+                <div class="lg:col-span-7 bg-slate-50/80 p-6 sm:p-8 rounded-3xl border border-slate-200/80 space-y-6">
+                    <!-- Category: Proteínas -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2.5">
+                            <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                                1. Fonte Proteica (25% do prato)
+                            </label>
+                            <span class="text-[11px] text-slate-500">Construção e saciedade</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <button onclick="setPlateItem('protein', 'Filé de Frango', 'fa-drumstick-bite', this)" class="plate-btn-protein p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-drumstick-bite text-base text-amber-600"></i>
+                                <span>Frango Grelhado</span>
+                            </button>
+                            <button onclick="setPlateItem('protein', 'Salmão / Tilápia', 'fa-fish', this)" class="plate-btn-protein p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-fish text-base text-sky-600"></i>
+                                <span>Peixe Assado</span>
+                            </button>
+                            <button onclick="setPlateItem('protein', 'Ovos Caipiras', 'fa-egg', this)" class="plate-btn-protein p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-egg text-base text-amber-500"></i>
+                                <span>Ovos</span>
+                            </button>
+                            <button onclick="setPlateItem('protein', 'Tofu & Grão-de-bico', 'fa-seedling', this)" class="plate-btn-protein p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-seedling text-base text-brand-600"></i>
+                                <span>Proteína Vegetal</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category: Carboidratos -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2.5">
+                            <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                                2. Carboidrato Complexo (25% do prato)
+                            </label>
+                            <span class="text-[11px] text-slate-500">Energia gradual</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <button onclick="setPlateItem('carbs', 'Arroz Integral', 'fa-bowl-rice', this)" class="plate-btn-carbs p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-bowl-rice text-base text-amber-700"></i>
+                                <span>Arroz Integral</span>
+                            </button>
+                            <button onclick="setPlateItem('carbs', 'Batata-Doce', 'fa-wheat-awn', this)" class="plate-btn-carbs p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-wheat-awn text-base text-orange-600"></i>
+                                <span>Batata-Doce</span>
+                            </button>
+                            <button onclick="setPlateItem('carbs', 'Mandioca Cozida', 'fa-utensils', this)" class="plate-btn-carbs p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-utensils text-base text-slate-600"></i>
+                                <span>Mandioca</span>
+                            </button>
+                            <button onclick="setPlateItem('carbs', 'Quinoa em Grãos', 'fa-spa', this)" class="plate-btn-carbs p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-spa text-base text-amber-600"></i>
+                                <span>Quinoa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category: Vegetais & Salada -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2.5">
+                            <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                                3. Hortaliças & Fibras (50% do prato)
+                            </label>
+                            <span class="text-[11px] text-slate-500">Micronutrientes</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <button onclick="setPlateItem('veggies', 'Folhas & Tomate', 'fa-leaf', this)" class="plate-btn-veggies p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-leaf text-base text-brand-600"></i>
+                                <span>Mix de Folhas</span>
+                            </button>
+                            <button onclick="setPlateItem('veggies', 'Brócolis & Cenoura', 'fa-carrot', this)" class="plate-btn-veggies p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-carrot text-base text-orange-500"></i>
+                                <span>Brócolis/Cenoura</span>
+                            </button>
+                            <button onclick="setPlateItem('veggies', 'Legumes no Vapor', 'fa-bowl-food', this)" class="plate-btn-veggies p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-bowl-food text-base text-emerald-600"></i>
+                                <span>Legumes</span>
+                            </button>
+                            <button onclick="setPlateItem('veggies', 'Rúcula & Beterraba', 'fa-apple-whole', this)" class="plate-btn-veggies p-3.5 bg-white rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:border-brand-600 flex flex-col items-center gap-2 transition-all">
+                                <i class="fa-solid fa-seedling text-base text-rose-600"></i>
+                                <span>Salada Colorida</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Plate Display -->
+                <div class="lg:col-span-5 bg-slate-900 text-white p-7 sm:p-8 rounded-3xl shadow-soft border border-slate-800 flex flex-col items-center text-center">
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-brand-400">Proporção Visual</span>
+                    <h3 class="text-xl font-bold mt-1 mb-1">Seu Prato Estruturado</h3>
+                    <p class="text-xs text-slate-400 mb-6">Distribuição ideal de macronutrientes</p>
+
+                    <!-- Circular Plate Representation -->
+                    <div class="w-64 h-64 rounded-full border-[10px] border-slate-800 bg-slate-950 p-3 relative flex flex-col justify-center items-center shadow-inner">
+                        <div class="grid grid-cols-2 grid-rows-2 w-full h-full gap-2 rounded-full overflow-hidden">
+                            <!-- Top Left: Protein -->
+                            <div class="bg-slate-800/90 border border-slate-700 rounded-tl-full flex flex-col items-center justify-center p-2">
+                                <i id="plateProtIcon" class="fa-solid fa-plus text-slate-500 text-lg"></i>
+                                <span id="plateProtText" class="text-[10px] font-semibold text-slate-300 mt-1.5 px-1">Proteína (25%)</span>
+                            </div>
+                            <!-- Top Right: Carb -->
+                            <div class="bg-slate-800/90 border border-slate-700 rounded-tr-full flex flex-col items-center justify-center p-2">
+                                <i id="plateCarbIcon" class="fa-solid fa-plus text-slate-500 text-lg"></i>
+                                <span id="plateCarbText" class="text-[10px] font-semibold text-slate-300 mt-1.5 px-1">Carboidrato (25%)</span>
+                            </div>
+                            <!-- Bottom: Veggies (2 cols) -->
+                            <div class="col-span-2 bg-brand-950/70 border border-brand-800/60 rounded-b-full flex flex-col items-center justify-center p-2">
+                                <i id="plateVegIcon" class="fa-solid fa-plus text-brand-500 text-lg"></i>
+                                <span id="plateVegText" class="text-[10px] font-semibold text-brand-200 mt-1.5">Hortaliças & Fibras (50%)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="plateScoreBox" class="mt-6 w-full p-4 rounded-2xl bg-slate-850 border border-slate-800 text-left text-xs">
+                        <span id="plateScoreTitle" class="font-bold text-slate-300 block mb-1">Aguardando composição</span>
+                        <p id="plateScoreDesc" class="text-slate-400 leading-relaxed">Selecione um item de cada grupo alimentar ao lado para receber a análise nutricional da refeição.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MYTHS OR TRUTHS SECTION -->
+    <section id="mitos" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-brand-400 text-xs font-bold uppercase tracking-widest">
+                    Etapa 04 • Evidência Científica
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 tracking-tight">
+                    Mito ou Verdade na Nutrição?
+                </h2>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">
+                    Avalie afirmações populares sobre emagrecimento e metabolismo à luz da ciência nutricional atual.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-slate-850 rounded-3xl p-7 sm:p-10 border border-slate-800 shadow-soft">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-5 mb-6">
+                    <span id="mythCardCount" class="text-xs font-bold text-brand-400 uppercase tracking-wider">Afirmação 1 de 4</span>
+                    <span id="mythScoreBadge" class="text-xs font-semibold bg-slate-800 border border-slate-700 px-3.5 py-1 rounded-full text-slate-300">Acertos: 0</span>
+                </div>
+
+                <div id="mythQuestionBox" class="text-center py-4 space-y-8">
+                    <h3 id="mythStatement" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                        "Consumir carboidratos após as 18h promove maior acúmulo de gordura corporal."
+                    </h3>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-3.5">
+                        <button onclick="answerMyth(false)" class="px-8 py-3.5 bg-slate-800 hover:bg-rose-600 text-white border border-slate-700 hover:border-rose-500 font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-xmark"></i> Mito
+                        </button>
+                        <button onclick="answerMyth(true)" class="px-8 py-3.5 bg-slate-800 hover:bg-brand-600 text-white border border-slate-700 hover:border-brand-500 font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-check"></i> Verdade
+                        </button>
+                    </div>
+                </div>
+
+                <div id="mythFeedbackBox" class="hidden p-6 rounded-2xl bg-slate-800/80 border border-slate-700 text-center space-y-4">
+                    <p id="mythFeedbackTitle" class="text-lg font-bold"></p>
+                    <p id="mythFeedbackExplanation" class="text-slate-300 text-sm leading-relaxed max-w-xl mx-auto"></p>
+                    <div class="pt-2">
+                        <button onclick="nextMyth()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl transition-all text-xs inline-flex items-center gap-2">
+                            <span>Próxima Afirmação</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECIPE GALLERY SECTION (IMAGENS ATUALIZADAS) -->
+    <section id="receitas" class="py-24 bg-slate-50/80 border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-brand-700 text-xs font-bold uppercase tracking-widest">
+                        Gastronomia Funcional
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+                        Receitas Equilibradas & Práticas
+                    </h2>
+                    <p class="text-slate-600 text-sm mt-2 max-w-xl">
+                        Preparações desenvolvidas pela nossa equipe para unir densidade nutricional, saciedade e prazer à mesa.
+                    </p>
+                </div>
+
+                <!-- Recipe Category Filter Tabs -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterRecipes('all', this)" class="recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white transition-all">Todas</button>
+                    <button onclick="filterRecipes('cafe', this)" class="recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all">Café & Lanches</button>
+                    <button onclick="filterRecipes('almoco', this)" class="recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all">Almoço & Jantar</button>
+                    <button onclick="filterRecipes('doces', this)" class="recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all">Sobremesas Fit</button>
+                </div>
+            </div>
+
+            <div id="recipeGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Recipe Card 1 (Nova Imagem: Panqueca de Aveia com Frutas Vermelhas) -->
+                <article class="recipe-card category-cafe bg-white rounded-3xl overflow-hidden shadow-card border border-slate-200/80 transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between">
+                    <div>
+                        <div class="h-56 overflow-hidden relative bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=900&q=85" 
+                                 alt="Panqueca Integral de Aveia e Frutas" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/047857/ffffff?text=Panqueca+Proteica'">
+                            <span class="absolute top-3.5 right-3.5 bg-white/95 backdrop-blur-md text-slate-800 text-[11px] font-bold px-3 py-1 rounded-full shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock text-brand-600"></i> 10 min
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-bold text-brand-700 uppercase tracking-wider">Café da Manhã</span>
+                            <h3 class="text-lg font-bold text-slate-900 mt-1">Panqueca Proteica de Aveia & Frutas</h3>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                Elaborada com farinha de aveia integral, ovos e whey protein, garantindo liberação gradual de energia e controle glicêmico.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-600">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-amber-500"></i> 245 kcal</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-dumbbell text-brand-600"></i> 19g Proteína</span>
+                        </div>
+                        <button onclick="openRecipeModal('panqueca')" class="mt-4 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-brand-700 text-slate-800 hover:text-white text-xs font-semibold border border-slate-200 hover:border-brand-700 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Ver Ingredientes & Preparo
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Recipe Card 2 (Nova Imagem: Bowl Mediterrâneo de Salmão/Frango, Quinoa e Abacate) -->
+                <article class="recipe-card category-almoco bg-white rounded-3xl overflow-hidden shadow-card border border-slate-200/80 transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between">
+                    <div>
+                        <div class="h-56 overflow-hidden relative bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85" 
+                                 alt="Bowl Funcional de Quinoa e Vegetais" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/047857/ffffff?text=Bowl+Funcional'">
+                            <span class="absolute top-3.5 right-3.5 bg-white/95 backdrop-blur-md text-slate-800 text-[11px] font-bold px-3 py-1 rounded-full shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock text-brand-600"></i> 20 min
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Almoço & Jantar</span>
+                            <h3 class="text-lg font-bold text-slate-900 mt-1">Bowl Mediterrâneo de Quinoa & Proteína</h3>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                Combinação completa com vegetais frescos, gorduras monoinsaturadas do abacate e proteínas de alto valor biológico.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-600">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-amber-500"></i> 415 kcal</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-dumbbell text-brand-600"></i> 34g Proteína</span>
+                        </div>
+                        <button onclick="openRecipeModal('bowl')" class="mt-4 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-brand-700 text-slate-800 hover:text-white text-xs font-semibold border border-slate-200 hover:border-brand-700 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Ver Ingredientes & Preparo
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Recipe Card 3 (Nova Imagem: Mousse de Cacau Amargo 70% com Frutas) -->
+                <article class="recipe-card category-doces bg-white rounded-3xl overflow-hidden shadow-card border border-slate-200/80 transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between">
+                    <div>
+                        <div class="h-56 overflow-hidden relative bg-slate-100">
+                            <img src="https://portaledicase.com/wp-content/uploads/2023/08/musse-de-chocolate-1024x683.jpeg" 
+                                 alt="Mousse de Cacau 70% Antioxidante" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/047857/ffffff?text=Mousse+Cacau+Fit'">
+                            <span class="absolute top-3.5 right-3.5 bg-white/95 backdrop-blur-md text-slate-800 text-[11px] font-bold px-3 py-1 rounded-full shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock text-brand-600"></i> 5 min
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-bold text-rose-700 uppercase tracking-wider">Sobremesa Funcional</span>
+                            <h3 class="text-lg font-bold text-slate-900 mt-1">Mousse Cremosa de Cacau 70% & Abacate</h3>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                Rica em polifenóis antioxidantes e ácidos graxos essenciais, ideal para controlar a vontade de doces sem picos de insulina.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-600">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-amber-500"></i> 185 kcal</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-seedling text-brand-600"></i> Zero Açúcar</span>
+                        </div>
+                        <button onclick="openRecipeModal('mousse')" class="mt-4 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-brand-700 text-slate-800 hover:text-white text-xs font-semibold border border-slate-200 hover:border-brand-700 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Ver Ingredientes & Preparo
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="depoimentos" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-brand-700 text-xs font-bold uppercase tracking-widest">
+                    Relatos Clínicos
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
+                    Evolução dos Nossos Pacientes
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Resultados construídos com consistência, educação nutricional e acompanhamento individualizado.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-50/80 p-7 rounded-3xl border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-500 gap-1 text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200/60">Paciente Verificado</span>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">"Eliminei 12 kg em quatro meses mantendo os alimentos da minha rotina. O diferencial foi aprender a ajustar as quantidades sem terrorismo nutricional."</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 mt-6 pt-5 border-t border-slate-200/70">
+                        <div class="w-10 h-10 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center">
+                            CB
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">Camila Barreto</p>
+                            <p class="text-xs text-slate-500">Redução de Gordura • -12 kg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50/80 p-7 rounded-3xl border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-500 gap-1 text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200/60">Paciente Verificado</span>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">"Minha recuperação muscular e pace na meia-maratona evoluíram drasticamente após o ajuste de carboidratos intra-treino e hidratação."</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 mt-6 pt-5 border-t border-slate-200/70">
+                        <div class="w-10 h-10 rounded-full bg-brand-700 text-white text-xs font-bold flex items-center justify-center">
+                            RM
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">Rodrigo Mendes</p>
+                            <p class="text-xs text-slate-500">Nutrição Esportiva & Corrida</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50/80 p-7 rounded-3xl border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex text-amber-500 gap-1 text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200/60">Paciente Verificado</span>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">"Meus exames bioquímicos normalizaram completamente em seis meses. O plano alimentar é extremamente organizado e fácil de seguir no trabalho."</p>
+                    </div>
+                    <div class="flex items-center gap-3.5 mt-6 pt-5 border-t border-slate-200/70">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 text-white text-xs font-bold flex items-center justify-center">
+                            FA
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">Fernanda Azevedo</p>
+                            <p class="text-xs text-slate-500">Saúde Metabólica & Reeducação</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtle Consultation Banner -->
+            <div class="mt-16 bg-slate-900 rounded-3xl p-8 sm:p-10 text-white flex flex-col lg:flex-row items-center justify-between gap-6 border border-slate-800">
+                <div class="text-center lg:text-left max-w-2xl">
+                    <span class="text-brand-400 text-xs font-bold uppercase tracking-wider">Pronto para dar o próximo passo?</span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Comece seu plano alimentar personalizado</h3>
+                    <p class="text-slate-400 text-sm mt-2">
+                        Atendimento completo com avaliação de bioimpedância, análise de exames laboratoriais e suporte direto pelo aplicativo.
+                    </p>
+                </div>
+                <button onclick="openModal('scheduleModal')" class="shrink-0 bg-brand-600 hover:bg-brand-500 text-white font-semibold px-7 py-4 rounded-2xl shadow-sm transition-all flex items-center gap-2.5 text-sm">
+                    <i class="fa-regular fa-calendar-check text-base"></i>
+                    <span>Agendar Primeira Consulta</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING CLINICAL ASSISTANT -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="nutriBotToggle" onclick="toggleNutriBot()" class="bg-slate-900 hover:bg-brand-700 text-white px-4 py-3.5 rounded-full shadow-lg border border-slate-700 transition-all flex items-center gap-2.5">
+            <i class="fa-solid fa-headset text-base text-brand-400"></i>
+            <span class="hidden sm:inline font-semibold text-xs">Atendimento Online</span>
+        </button>
+
+        <!-- Chat Box Drawer -->
+        <div id="nutriBotWindow" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-slate-900 text-white p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-700 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold leading-none">Triagem Nutri Life</h4>
+                        <span class="text-[10px] text-brand-400 font-medium flex items-center gap-1 mt-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-400"></span> Assistente Clínico Ativo
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleNutriBot()" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Chat Messages Log -->
+            <div id="botChatLog" class="p-4 h-60 overflow-y-auto space-y-3 bg-slate-50 text-xs">
+                <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80 text-slate-700 max-w-[88%] leading-relaxed shadow-2xs">
+                    Olá! Bem-vindo à <strong>Nutri Life</strong>. Selecione um tópico abaixo para esclarecer dúvidas frequentes sobre nossos protocolos:
+                </div>
+            </div>
+
+            <!-- Quick Queries inside Chat -->
+            <div class="p-3 bg-white border-t border-slate-100 space-y-2">
+                <div class="space-y-1">
+                    <button onclick="sendBotQuickQuery('Qual a recomendação ideal de hidratação diária?')" class="w-full text-left p-2 rounded-xl bg-slate-50 hover:bg-brand-50 text-[11px] font-medium text-slate-700 transition-colors border border-slate-200/70 flex items-center gap-2">
+                        <i class="fa-solid fa-droplet text-sky-600"></i> Recomendação ideal de hidratação
+                    </button>
+                    <button onclick="sendBotQuickQuery('Como estruturar uma refeição pré-treino?')" class="w-full text-left p-2 rounded-xl bg-slate-50 hover:bg-brand-50 text-[11px] font-medium text-slate-700 transition-colors border border-slate-200/70 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-amber-500"></i> Estrutura de refeição pré-treino
+                    </button>
+                </div>
+                <form onsubmit="handleCustomBotInput(event)" class="flex gap-1.5 pt-1">
+                    <input type="text" id="botCustomInput" placeholder="Escreva sua dúvida rápida..." class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-xs text-slate-800">
+                    <button type="submit" aria-label="Enviar mensagem" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-brand-700 text-white text-xs transition-colors">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECIPE DETAILS MODAL -->
+    <div id="recipeModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-7 sm:p-8 shadow-2xl relative border border-slate-200 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('recipeModal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span id="recipeModalTag" class="text-[11px] font-bold text-brand-700 uppercase tracking-wider">Receita Funcional</span>
+            <h3 id="recipeModalTitle" class="text-2xl font-extrabold text-slate-900 mt-1">Título da Receita</h3>
+            <p id="recipeModalMacros" class="text-xs font-semibold text-slate-500 mt-1 pb-4 border-b border-slate-100"></p>
+
+            <div class="mt-5 space-y-5">
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-basket-shopping text-brand-600"></i> Ingredientes
+                    </h4>
+                    <ul id="recipeModalIngredients" class="space-y-1.5 text-sm text-slate-600 list-disc pl-5"></ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-fire-burner text-amber-500"></i> Modo de Preparo
+                    </h4>
+                    <p id="recipeModalSteps" class="text-sm text-slate-600 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                <button onclick="copyRecipeIngredients()" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-copy"></i> <span id="copyRecipeBtnText">Copiar Lista de Compras</span>
+                </button>
+                <button onclick="closeModal('recipeModal')" class="py-2.5 px-5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-semibold transition-colors">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULE CONSULTATION MODAL -->
+    <div id="scheduleModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-7 sm:p-8 shadow-2xl relative border border-slate-200">
+            <button onclick="closeModal('scheduleModal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="scheduleFormContainer">
+                <div class="flex items-center gap-2.5 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center text-xs">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <span class="text-brand-700 text-xs font-bold uppercase tracking-wider">Pré-Agendamento</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Agende sua Avaliação Nutricional</h3>
+                <p class="text-xs text-slate-500 mt-1 mb-5">Nossa equipe confirmará o horário ideal via WhatsApp em até 15 minutos.</p>
+
+                <form onsubmit="handleScheduleSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Seu Nome</label>
+                        <input type="text" id="schedName" required placeholder="Como gostaria de ser chamado(a)?" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Modalidade</label>
+                            <select id="schedMode" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-xs font-medium">
+                                <option value="Teleconsulta Online">Teleconsulta Online</option>
+                                <option value="Presencial (SP)">Presencial (São Paulo)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Melhor Turno</label>
+                            <select id="schedShift" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-xs font-medium">
+                                <option value="Manhã">Manhã (08h - 12h)</option>
+                                <option value="Tarde">Tarde (13h - 18h)</option>
+                                <option value="Noite">Noite (18h - 20h)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp para Contato</label>
+                        <input type="tel" id="schedPhone" required placeholder="(11) 99999-9999" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors mt-2">
+                        Solicitar Horário
+                    </button>
+                </form>
+            </div>
+
+            <div id="scheduleSuccessBox" class="hidden text-center py-6 space-y-4">
+                <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-700 border border-brand-200 flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h4 class="text-xl font-extrabold text-slate-900">Solicitação Recebida!</h4>
+                <p id="scheduleSuccessText" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
+                <button onclick="resetScheduleModal()" class="px-6 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold">
+                    Concluir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION (LOGIN / REGISTER) MODAL -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-7 sm:p-8 shadow-2xl relative border border-slate-200">
+            <button onclick="closeModal('authModal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header & Tabs -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2.5 mb-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <span class="text-brand-700 text-xs font-bold uppercase tracking-wider">Portal do Paciente</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Acesse seu Acompanhamento</h3>
+                
+                <!-- Toggle Tabs -->
+                <div class="grid grid-cols-2 p-1 bg-slate-100 rounded-xl mt-4">
+                    <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="py-2 text-xs font-semibold rounded-lg transition-all bg-white text-slate-900 shadow-2xs">
+                        Entrar
+                    </button>
+                    <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="py-2 text-xs font-semibold rounded-lg transition-all text-slate-500 hover:text-slate-900">
+                        Cadastrar-se
+                    </button>
+                </div>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleAuthSubmit(event, 'login')" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">E-mail cadastrado</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="email" id="loginEmail" required placeholder="nome@exemplo.com.br" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-semibold text-slate-700">Senha</label>
+                        <button type="button" onclick="alert('Um link de redefinição foi enviado para o seu e-mail.')" class="text-[11px] font-semibold text-brand-700 hover:underline">Recuperar senha</button>
+                    </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors mt-2">
+                    Entrar no Portal
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" onsubmit="handleAuthSubmit(event, 'register')" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nome Completo</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="text" id="regName" required placeholder="Seu nome e sobrenome" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">E-mail</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="email" id="regEmail" required placeholder="nome@exemplo.com.br" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">Definir Senha</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="password" id="regPassword" required placeholder="Mínimo 8 caracteres" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-brand-600 text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold rounded-xl shadow-sm transition-colors mt-2">
+                    Criar Conta de Paciente
+                </button>
+            </form>
+
+            <!-- Demo Login Assistant -->
+            <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+                <button type="button" onclick="quickDemoLogin()" class="text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-id-card text-brand-700"></i> Acessar Conta Demonstrativa
+                </button>
+            </div>
+
+            <p id="authFeedback" class="text-xs text-brand-700 font-semibold text-center mt-3 hidden"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-14 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-brand-700 flex items-center justify-center text-white text-sm">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <span class="font-display text-xl font-bold text-white">NutriLife</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Clínica especializada em nutrição comportamental, esportiva e saúde metabólica baseada em evidências científicas.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Ferramentas</h5>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#icebreakers" class="hover:text-white transition-colors">Triagem Nutricional</a></li>
+                        <li><a href="#calculadoras" class="hover:text-white transition-colors">Calculadoras Clínicas</a></li>
+                        <li><a href="#prato-perfeito" class="hover:text-white transition-colors">Composição de Prato</a></li>
+                        <li><a href="#receitas" class="hover:text-white transition-colors">Gastronomia Funcional</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Atendimento</h5>
+                    <ul class="space-y-2.5 text-xs">
+                        <li class="flex items-center gap-2"><i class="fa-regular fa-envelope text-brand-500"></i> contato@nutrilife.com.br</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-brand-500"></i> (14) 99123-4567</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-brand-500"></i>R. Aviador Gomes Ribeiro, 34-60 - P.Paulistano, Bauru-São Paulo/SP</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Canais Oficiais</h5>
+                    <div class="flex gap-3 text-base text-slate-300">
+                        <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:border-brand-600 hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:border-brand-600 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="WhatsApp" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:border-brand-600 hover:text-white transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
+                <p>&copy; 2026 Nutri Life Clínica de Nutrição Ltda. Todos os direitos reservados.</p>
+                <p>Conteúdo informativo — não substitui consulta presencial individualizada.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ----------------------------------------------------
+        // NAVIGATION & MODALS
+        // ----------------------------------------------------
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // ----------------------------------------------------
+        // AUTHENTICATION SYSTEM (LOGIN / REGISTER)
+        // ----------------------------------------------------
+        let currentUser = null;
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabLoginBtn = document.getElementById('tabLoginBtn');
+            const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                tabLoginBtn.className = "py-2 text-xs font-semibold rounded-lg transition-all bg-white text-slate-900 shadow-2xs";
+                tabRegisterBtn.className = "py-2 text-xs font-semibold rounded-lg transition-all text-slate-500 hover:text-slate-900";
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                tabLoginBtn.className = "py-2 text-xs font-semibold rounded-lg transition-all text-slate-500 hover:text-slate-900";
+                tabRegisterBtn.className = "py-2 text-xs font-semibold rounded-lg transition-all bg-white text-slate-900 shadow-2xs";
+            }
+        }
+
+        function handleAuthSubmit(e, mode) {
+            e.preventDefault();
+            let userName = "Paciente Nutri Life";
+
+            if (mode === 'register') {
+                const nameInput = document.getElementById('regName').value;
+                if (nameInput) userName = nameInput;
+            } else {
+                const emailInput = document.getElementById('loginEmail').value;
+                if (emailInput) userName = emailInput.split('@')[0];
+            }
+
+            loginUser(userName);
+        }
+
+        function quickDemoLogin() {
+            loginUser("arthur borges");
+        }
+
+        function loginUser(userName) {
+            currentUser = {
+                name: userName,
+                avatar: userName.charAt(0).toUpperCase()
+            };
+
+            const feedback = document.getElementById('authFeedback');
+            feedback.innerText = `Sessão iniciada como ${currentUser.name}. Redirecionando...`;
+            feedback.classList.remove('hidden');
+
+            setTimeout(() => {
+                closeModal('authModal');
+                feedback.classList.add('hidden');
+                updateAuthUI();
+            }, 900);
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            const desktopNav = document.getElementById('headerAuthContainer');
+            const mobileNav = document.getElementById('mobileAuthContainer');
+
+            if (currentUser) {
+                desktopNav.innerHTML = `
+                    <div class="flex items-center gap-3 bg-slate-50 p-1.5 pl-3 rounded-xl border border-slate-200">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-lg bg-brand-700 text-white font-bold flex items-center justify-center text-xs">
+                                ${currentUser.avatar}
+                            </div>
+                            <span class="text-xs font-semibold text-slate-800">${currentUser.name}</span>
+                        </div>
+                        <button onclick="logoutUser()" title="Encerrar sessão" class="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg transition-colors">
+                            <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                        </button>
+                    </div>
+                `;
+
+                mobileNav.innerHTML = `
+                    <div class="p-3 bg-slate-50 rounded-xl flex items-center justify-between border border-slate-200">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-lg bg-brand-700 text-white font-bold flex items-center justify-center text-xs">
+                                ${currentUser.avatar}
+                            </div>
+                            <span class="text-xs font-semibold text-slate-800">${currentUser.name}</span>
+                        </div>
+                        <button onclick="logoutUser()" class="text-xs font-semibold text-rose-600 hover:underline">
+                            Sair
+                        </button>
+                    </div>
+                `;
+            } else {
+                desktopNav.innerHTML = `
+                    <button onclick="openModal('authModal')" class="text-sm font-semibold text-slate-700 hover:text-brand-700 px-3 py-2 transition-colors">
+                        Área do Paciente
+                    </button>
+                    <button onclick="openModal('scheduleModal')" class="bg-slate-900 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                        <span>Agendar Consulta</span>
+                        <i class="fa-regular fa-calendar-check text-xs"></i>
+                    </button>
+                `;
+
+                mobileNav.innerHTML = `
+                    <button onclick="openModal('authModal')" class="w-full bg-brand-700 text-white font-semibold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-user-check"></i> Acessar Área do Paciente
+                    </button>
+                `;
+            }
+        }
+
+        // ----------------------------------------------------
+        // DAILY LIGHTHEARTED NUTRITION TIPS
+        // ----------------------------------------------------
+        const dailyTips = [
+            "Comer um chocolate 70% depois do almoço não estraga sua semana — o que define resultado é a consistência dos outros 90%.",
+            "Sentiu vontade de beliscar às 16h? Muitas vezes é apenas sede disfarçada. Experimente beber um copo de água gelada primeiro.",
+            "Arroz com feijão continua sendo uma das combinações de aminoácidos mais completas e inteligentes da nutrição.",
+            "Dormir menos de 6 horas aumenta o hormônio da fome (grelina) no dia seguinte. Sono regulado também faz parte da dieta."
+        ];
+        let currentTipIdx = 0;
+
+        function nextDailyTip() {
+            currentTipIdx = (currentTipIdx + 1) % dailyTips.length;
+            document.getElementById('dailyTipText').innerText = dailyTips[currentTipIdx];
+        }
+
+        // ----------------------------------------------------
+        // RECIPE DETAILS MODAL & CLIPBOARD
+        // ----------------------------------------------------
+        const recipesData = {
+            panqueca: {
+                tag: "Café da Manhã • 10 min",
+                title: "Panqueca Proteica de Aveia & Frutas",
+                macros: "245 kcal • 19g Proteínas • 28g Carboidratos • 6g Fibras",
+                ingredients: [
+                    "1 ovo inteiro + 1 clara",
+                    "2 colheres (sopa) de farinha de aveia integral",
+                    "1/2 banana nanica madura amassada",
+                    "1/2 scoop de whey protein sabor baunilha (opcional)",
+                    "Canela em pó a gosto e frutas vermelhas para finalizar"
+                ],
+                steps: "Misture bem todos os ingredientes até formar uma massa homogênea. Doure em frigideira antiaderente untada levemente com óleo de coco por cerca de 2 minutos de cada lado em fogo baixo. Sirva com frutas vermelhas frescas."
+            },
+            bowl: {
+                tag: "Almoço & Jantar • 20 min",
+                title: "Bowl Mediterrâneo de Quinoa & Proteína",
+                macros: "415 kcal • 34g Proteínas • 36g Carboidratos • 14g Gorduras Boas",
+                ingredients: [
+                    "120g de filé de frango grelhado em cubos ou salmão",
+                    "3 colheres (sopa) de quinoa cozida",
+                    "1/4 de abacate fatiado",
+                    "Mix de folhas verdes, tomate-cereja e pepino japonês",
+                    "1 colher (sobremesa) de azeite extravirgem e suco de limão"
+                ],
+                steps: "Disponha as folhas na base de um bowl fundo. Acrescente a quinoa morna, a proteína grelhada temperada com ervas finas, os vegetais crocantes e finalize com o abacate e o molho cítrico de azeite e limão."
+            },
+            mousse: {
+                tag: "Sobremesa Funcional • 5 min",
+                title: "Mousse Cremosa de Cacau 70% & Abacate",
+                macros: "185 kcal • 4g Proteínas • 14g Carboidratos • Zero Açúcar",
+                ingredients: [
+                    "1/2 abacate maduro pequeno (ou avocado)",
+                    "1 colher (sopa) cheia de cacau em pó 100%",
+                    "1 colher (sopa) de xilitol, eritritol ou mel",
+                    "2 colheres (sopa) de bebida vegetal ou leite desnatado",
+                    "Nibs de cacau ou morangos picados para decorar"
+                ],
+                steps: "Bata o abacate, o cacau, o adoçante natural e o líquido no mixer ou processador até atingir textura lisa e aerada. Leve à geladeira por 20 minutos antes de servir para acentuar a cremosidade."
+            }
+        };
+
+        let activeRecipeIngredients = [];
+
+        function openRecipeModal(key) {
+            const recipe = recipesData[key];
+            if (!recipe) return;
+
+            document.getElementById('recipeModalTag').innerText = recipe.tag;
+            document.getElementById('recipeModalTitle').innerText = recipe.title;
+            document.getElementById('recipeModalMacros').innerText = recipe.macros;
+            document.getElementById('recipeModalSteps').innerText = recipe.steps;
+
+            const listEl = document.getElementById('recipeModalIngredients');
+            listEl.innerHTML = '';
+            recipe.ingredients.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                listEl.appendChild(li);
+            });
+
+            activeRecipeIngredients = recipe.ingredients;
+            document.getElementById('copyRecipeBtnText').innerText = "Copiar Lista de Compras";
+            openModal('recipeModal');
+        }
+
+        function copyRecipeIngredients() {
+            const textToCopy = activeRecipeIngredients.join('\n• ');
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = 'Lista de Compras - Nutri Life:\n• ' + textToCopy;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+
+            document.getElementById('copyRecipeBtnText').innerText = "Lista Copiada!";
+        }
+
+        // ----------------------------------------------------
+        // CONSULTATION SCHEDULING MODAL
+        // ----------------------------------------------------
+        function handleScheduleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('schedName').value;
+            const mode = document.getElementById('schedMode').value;
+            const shift = document.getElementById('schedShift').value;
+
+            document.getElementById('scheduleFormContainer').classList.add('hidden');
+            document.getElementById('scheduleSuccessBox').classList.remove('hidden');
+            document.getElementById('scheduleSuccessText').innerText = `Obrigado, ${name}! Registramos sua preferência para ${mode} no período da ${shift}. Nossa recepção enviará as opções de horários no seu WhatsApp em instantes.`;
+        }
+
+        function resetScheduleModal() {
+            closeModal('scheduleModal');
+            setTimeout(() => {
+                document.getElementById('scheduleSuccessBox').classList.add('hidden');
+                document.getElementById('scheduleFormContainer').classList.remove('hidden');
+            }, 300);
+        }
+
+        // ----------------------------------------------------
+        // QUICK WATER TRACKER (HERO)
+        // ----------------------------------------------------
+        let currentWater = 0;
+        const waterGoal = 2000;
+
+        function addQuickWater(amount) {
+            currentWater += amount;
+            if (currentWater > waterGoal) currentWater = waterGoal;
+            updateWaterDisplay();
+        }
+
+        function resetQuickWater() {
+            currentWater = 0;
+            updateWaterDisplay();
+        }
+
+        function updateWaterDisplay() {
+            const pct = Math.round((currentWater / waterGoal) * 100);
+            document.getElementById('quickWaterCount').innerText = `${currentWater.toLocaleString('pt-BR')} / ${waterGoal.toLocaleString('pt-BR')} ml`;
+            document.getElementById('quickWaterBar').style.width = `${pct}%`;
+        }
+
+        // ----------------------------------------------------
+        // TRIAGE QUIZ SYSTEM
+        // ----------------------------------------------------
+        let quizAnswers = {};
+
+        function selectQuizOption(step, answer) {
+            quizAnswers[`step${step}`] = answer;
+            if (step === 1) {
+                document.getElementById('quizStep1').classList.add('hidden');
+                document.getElementById('quizStep2').classList.remove('hidden');
+                document.getElementById('quizStepBadge').innerText = 'Passo 2 de 3';
+            } else if (step === 2) {
+                document.getElementById('quizStep2').classList.add('hidden');
+                document.getElementById('quizStep3').classList.remove('hidden');
+                document.getElementById('quizStepBadge').innerText = 'Passo 3 de 3';
+            }
+        }
+
+        function finishQuiz(answer) {
+            quizAnswers['step3'] = answer;
+            document.getElementById('quizStep3').classList.add('hidden');
+            document.getElementById('quizResult').classList.remove('hidden');
+            document.getElementById('quizStepBadge').innerText = 'Concluído';
+
+            const summary = `Para o seu objetivo de <strong class="text-white">${quizAnswers.step1}</strong>, o protocolo recomendado prioriza <strong class="text-white">${quizAnswers.step2}</strong> através de um plano estruturado com <strong class="text-white">${quizAnswers.step3}</strong>.`;
+            document.getElementById('quizSummaryText').innerHTML = summary;
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            document.getElementById('quizResult').classList.add('hidden');
+            document.getElementById('quizStep1').classList.remove('hidden');
+            document.getElementById('quizStepBadge').innerText = 'Passo 1 de 3';
+        }
+
+        // ----------------------------------------------------
+        // CALCULATORS
+        // ----------------------------------------------------
+        function calculateWater() {
+            const weight = parseFloat(document.getElementById('waterWeightInput').value) || 70;
+            const factor = parseFloat(document.getElementById('waterActivityInput').value) || 35;
+            const total = Math.round(weight * factor);
+            const cups = Math.round(total / 250);
+            
+            document.getElementById('waterResultValue').innerText = `${total.toLocaleString('pt-BR')} ml`;
+            document.getElementById('waterCupsText').innerText = `Equivalente a aproximadamente ${cups} copos de 250 ml ao longo do dia`;
+            document.getElementById('waterResult').classList.remove('hidden');
+        }
+
+        function calculateTMB() {
+            const age = parseInt(document.getElementById('tmbAge').value) || 28;
+            const height = parseInt(document.getElementById('tmbHeight').value) || 175;
+            const weight = parseFloat(document.getElementById('tmbWeight').value) || 70;
+            const gender = document.getElementById('tmbGender').value;
+
+            let tmb = 0;
+            if (gender === 'm') {
+                tmb = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+            } else {
+                tmb = 447.59 + (9.24 * weight) + (3.1 * height) - (4.33 * age);
+            }
+
+            document.getElementById('tmbResultValue').innerText = `${Math.round(tmb).toLocaleString('pt-BR')} kcal`;
+            document.getElementById('tmbResult').classList.remove('hidden');
+        }
+
+        // ----------------------------------------------------
+        // BUILD YOUR PLATE SIMULATOR
+        // ----------------------------------------------------
+        const currentPlate = { protein: null, carbs: null, veggies: null };
+
+        function setPlateItem(type, name, iconClass, btnEl) {
+            currentPlate[type] = { name, iconClass };
+
+            // Highlight selected button
+            document.querySelectorAll(`.plate-btn-${type}`).forEach(b => {
+                b.classList.remove('border-brand-600', 'bg-brand-50/60', 'ring-2', 'ring-brand-600/20');
+                b.classList.add('border-slate-200', 'bg-white');
+            });
+            if (btnEl) {
+                btnEl.classList.remove('border-slate-200', 'bg-white');
+                btnEl.classList.add('border-brand-600', 'bg-brand-50/60', 'ring-2', 'ring-brand-600/20');
+            }
+
+            if (type === 'protein') {
+                const iconEl = document.getElementById('plateProtIcon');
+                iconEl.className = `fa-solid ${iconClass} text-brand-400 text-lg`;
+                document.getElementById('plateProtText').innerText = name;
+            } else if (type === 'carbs') {
+                const iconEl = document.getElementById('plateCarbIcon');
+                iconEl.className = `fa-solid ${iconClass} text-amber-400 text-lg`;
+                document.getElementById('plateCarbText').innerText = name;
+            } else if (type === 'veggies') {
+                const iconEl = document.getElementById('plateVegIcon');
+                iconEl.className = `fa-solid ${iconClass} text-brand-400 text-lg`;
+                document.getElementById('plateVegText').innerText = name;
+            }
+
+            evaluatePlate();
+        }
+
+        function evaluatePlate() {
+            const scoreTitle = document.getElementById('plateScoreTitle');
+            const scoreDesc = document.getElementById('plateScoreDesc');
+
+            if (currentPlate.protein && currentPlate.carbs && currentPlate.veggies) {
+                scoreTitle.innerText = "Composição Nutricional Equilibrada";
+                scoreTitle.className = "font-bold text-brand-400 block mb-1";
+                scoreDesc.innerText = `Combinação adequada com ${currentPlate.protein.name}, ${currentPlate.carbs.name} e ${currentPlate.veggies.name}. Proporciona excelente densidade nutritiva, controle glicêmico e saciedade prolongada.`;
+            } else {
+                scoreTitle.innerText = "Composição Parcial";
+                scoreTitle.className = "font-bold text-amber-400 block mb-1";
+                scoreDesc.innerText = "Selecione os demais grupos alimentares para completar a análise de equilíbrio da refeição.";
+            }
+        }
+
+        // ----------------------------------------------------
+        // NUTRITION MYTHS GAME
+        // ----------------------------------------------------
+        const mythQuestions = [
+            {
+                statement: '"Consumir carboidratos após as 18h promove maior acúmulo de gordura corporal."',
+                isTrue: false,
+                explanation: 'Mito. A alteração na composição corporal é determinada pelo balanço energético total ao longo das 24 horas e da semana, não pelo horário isolado de ingestão.'
+            },
+            {
+                statement: '"Água com limão em jejum acelera o metabolismo e promove oxidação direta de gordura."',
+                isTrue: false,
+                explanation: 'Mito. Embora contribua para a hidratação e aporte de vitamina C, não possui efeito termogênico relevante capaz de gerar perda de gordura sem déficit calórico.'
+            },
+            {
+                statement: '"O aporte proteico adequado eleva a saciedade e preserva a massa magra durante o emagrecimento."',
+                isTrue: true,
+                explanation: 'Verdade. As proteínas possuem maior efeito térmico dos alimentos e estimulam hormônios ligados à saciedade, além de protegerem o tecido muscular.'
+            },
+            {
+                statement: '"Sucos naturais coados apresentam carga glicêmica superior à da fruta inteira."',
+                isTrue: true,
+                explanation: 'Verdade. Ao remover as fibras insolúveis e concentrar várias unidades da fruta em um copo, a absorção da frutose ocorre de forma muito mais rápida.'
+            }
+        ];
+
+        let currentMythIndex = 0;
+        let mythScore = 0;
+
+        function answerMyth(userAnswer) {
+            const q = mythQuestions[currentMythIndex];
+            const feedbackBox = document.getElementById('mythFeedbackBox');
+            const questionBox = document.getElementById('mythQuestionBox');
+            const titleEl = document.getElementById('mythFeedbackTitle');
+            const explEl = document.getElementById('mythFeedbackExplanation');
+
+            questionBox.classList.add('hidden');
+            feedbackBox.classList.remove('hidden');
+
+            if (userAnswer === q.isTrue) {
+                mythScore++;
+                titleEl.innerText = "Avaliação Correta";
+                titleEl.className = "text-lg font-bold text-brand-400";
+            } else {
+                titleEl.innerText = "Ponto de Atenção";
+                titleEl.className = "text-lg font-bold text-rose-400";
+            }
+
+            explEl.innerText = q.explanation;
+            document.getElementById('mythScoreBadge').innerText = `Acertos: ${mythScore}`;
+        }
+
+        function nextMyth() {
+            currentMythIndex = (currentMythIndex + 1) % mythQuestions.length;
+
+            document.getElementById('mythCardCount').innerText = `Afirmação ${currentMythIndex + 1} de ${mythQuestions.length}`;
+            document.getElementById('mythStatement').innerText = mythQuestions[currentMythIndex].statement;
+            document.getElementById('mythFeedbackBox').classList.add('hidden');
+            document.getElementById('mythQuestionBox').classList.remove('hidden');
+        }
+
+        // ----------------------------------------------------
+        // RECIPE FILTERING
+        // ----------------------------------------------------
+        function filterRecipes(category, btnEl) {
+            document.querySelectorAll('.recipe-tab').forEach(tab => {
+                tab.className = "recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all";
+            });
+            if (btnEl) {
+                btnEl.className = "recipe-tab px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white transition-all";
+            }
+
+            const cards = document.querySelectorAll('.recipe-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ----------------------------------------------------
+        // CLINICAL ASSISTANT CHAT
+        // ----------------------------------------------------
+        function toggleNutriBot() {
+            const win = document.getElementById('nutriBotWindow');
+            win.classList.toggle('hidden');
+        }
+
+        function sendBotQuickQuery(queryText) {
+            const chatLog = document.getElementById('botChatLog');
+
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-slate-900 text-white p-3 rounded-2xl text-right max-w-[85%] ml-auto font-medium";
+            userMsg.innerText = queryText;
+            chatLog.appendChild(userMsg);
+
+            setTimeout(() => {
+                let reply = "Para uma conduta individualizada, agende uma avaliação com nossa equipe clínica.";
+                if (queryText.includes('hidratação')) {
+                    reply = "A diretriz geral é de 35 ml a 45 ml por kg de peso corporal, variando conforme o nível de atividade física. Utilize nossa calculadora clínica acima para o valor exato.";
+                } else if (queryText.includes('pré-treino')) {
+                    reply = "O ideal é priorizar carboidratos de fácil digestão (como frutas, aveia ou raízes) entre 45 e 90 minutos antes do exercício para sustentar a performance.";
+                } else if (queryText.includes('Portal')) {
+                    reply = "Clique em 'Área do Paciente' no menu superior para acessar seu plano alimentar, histórico antropométrico e lista de substituições.";
+                }
+
+                const botMsg = document.createElement('div');
+                botMsg.className = "bg-white p-3.5 rounded-2xl border border-slate-200/80 text-slate-700 max-w-[88%] leading-relaxed shadow-2xs";
+                botMsg.innerText = reply;
+                chatLog.appendChild(botMsg);
+
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }, 450);
+        }
+
+        function handleCustomBotInput(e) {
+            e.preventDefault();
+            const input = document.getElementById('botCustomInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            input.value = '';
+            const chatLog = document.getElementById('botChatLog');
+
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-slate-900 text-white p-3 rounded-2xl text-right max-w-[85%] ml-auto font-medium";
+            userMsg.innerText = text;
+            chatLog.appendChild(userMsg);
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            setTimeout(() => {
+                const lower = text.toLowerCase();
+                let reply = "Ótima pergunta! Cada metabolismo responde de um jeito único. Você pode agendar uma avaliação rápida no botão 'Agendar Consulta' para analisarmos seu caso.";
+
+                if (lower.includes('doce') || lower.includes('chocolate') || lower.includes('açúcar')) {
+                    reply = "Não precisa cortar doces para sempre! Estratégias como associar fibras ou escolher versões 70% cacau após as refeições ajudam a controlar a glicemia sem sofrimento.";
+                } else if (lower.includes('emagrec') || lower.includes('perder peso') || lower.includes('gordura')) {
+                    reply = "O emagrecimento sustentável vem de um déficit calórico leve combinado com bom aporte de proteínas e sono regulado — nada de passar fome!";
+                } else if (lower.includes('preço') || lower.includes('valor') || lower.includes('consulta')) {
+                    reply = "Nossas consultas incluem avaliação completa, plano alimentar no aplicativo e suporte entre retornos. Clique em 'Agendar Consulta' para receber os detalhes.";
+                }
+
+                const botMsg = document.createElement('div');
+                botMsg.className = "bg-white p-3.5 rounded-2xl border border-slate-200/80 text-slate-700 max-w-[88%] leading-relaxed shadow-2xs";
+                botMsg.innerText = reply;
+                chatLog.appendChild(botMsg);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }, 500);
+        }
+    </script>
+       <div vw class="enable" ></div>
+      <div vw-acess-button class="active"></div>
+      <div vw-plugin-wrapper>
+           <div class="vw-plugin-top-wrapper"></div>
+   </div>
+ </div>
+ <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+   <script>
+    new window.Vlibras.widget('https://vlibras.gov.br/app');
+   </script>
+</body>
+</html>
